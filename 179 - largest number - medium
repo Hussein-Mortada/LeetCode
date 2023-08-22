@@ -1,0 +1,42 @@
+/************************* JAVA *****************************/
+/** this was a bit complicated for me to understand at first
+*  Solution: we need to sort the array so that the largest int numbers with largest beginnings (9 vs 13.  9 has largest beginnng) are at the start.  
+* Turn int array into string array.  Sort the array using a new comparator or an built in one.  The comparator compares a string of the first and second element together or the
+* second then first element together (ex:  9 and 13 = 913 vs 13 and 9 = 139) . This sorts it so largest number are at the start.  Loop through and build a string and return it. 
+**/
+class Solution {
+    public String largestNumber(int[] nums) {
+        StringBuilder sb = new StringBuilder();
+        String[] arr = new String[nums.length];
+        for(int i=0; i<nums.length;i++){
+            arr[i]=String.valueOf(nums[i]);
+        }
+        Arrays.sort(arr,(a,b) -> (b+a).compareTo(a+b));
+        for(String str:arr)
+        {
+            sb.append(str);
+        }
+        String result=sb.toString();
+        return result.startsWith("0")?"0":result;
+    }
+}
+/************************* Python *****************************/
+class LargerNumKey(str):
+    def __lt__(x, y):
+        # Compare x+y with y+x in reverse order to get descending order
+        return x+y > y+x
+
+class Solution:
+    def largestNumber(self, nums):
+        # Convert the list of numbers to list of strings
+        nums = [str(num) for num in nums]
+        
+        # Sort the list of strings using our custom sorting function
+        nums.sort(key=LargerNumKey)
+        
+        # Join the sorted list of strings to form the final result
+        largest_num = ''.join(nums)
+        
+        # If the largest number is 0, return "0"
+        # Otherwise, return the largest number
+        return "0" if largest_num[0] == "0" else largest_num
