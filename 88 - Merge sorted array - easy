@@ -1,0 +1,52 @@
+/*************              Java      ***********************************************/
+//solution 1
+//loop through array 2 and append to array 1, use built in functionality to resort it.
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        for(int i=0;i<n;i++){
+            nums1[i+m]=nums2[i];
+        }
+        Arrays.sort(nums1);
+    }
+}
+//solution 2 (faster) 
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        //since both areas are already sorted, we can traverse greatest to smallest and work backwards
+        int i = m-1; // end of nums1 (actual data)
+        int j = n-1; //end of nums2 
+        int k = m+n-1; //end of merged size 
+        while(j >= 0){ //while nums2 has data
+            if(i >= 0 && nums1[i] > nums2[j]){ //if still in nums1 and nums1 data is greater
+                nums1[k--] = nums1[i--]; //make the end of the nums1 (merged open area) equal to the greater value. decrement location in nums1
+            }else{
+                nums1[k--] = nums2[j--];// add nums2 to end of merged array, decrement location in nums 2
+            }
+        }
+    }
+}
+
+/********************* Python ***********************************/
+#solution 1
+class Solution(object):
+    def merge(self, nums1, m, nums2, n):
+        for i in range(n):
+            nums1[m+i]=nums2[i]
+        nums1.sort()
+
+#solution 2
+class Solution(object):
+    def merge(self, nums1, m, nums2, n):
+        i=m-1
+        j=n-1
+        k=m+n-1
+        while(j>=0):
+            if(i>=0 and nums1[i]>nums2[j]):
+                nums1[k]=nums1[i]
+                k-=1
+                i-=1
+            else:
+                nums1[k]=nums2[j]
+                k-=1
+                j-=1
+        
