@@ -1,0 +1,47 @@
+//reason its hard is because the requested O(log(m+n))
+/******************************** JAVA ****************************/
+//solution 1 O(m+n) -- Slower than requested but faster than 85.66% of submissions
+class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int totalLength = nums1.length + nums2.length;
+        int[] merged = new int[totalLength];
+        int i = 0, j = 0, k = 0;
+
+        while (i < nums1.length && j < nums2.length) { //go through first and second array, merge them into one array
+            if (nums1[i] < nums2[j]) {
+                merged[k] = nums1[i];
+                i++;
+            } else {
+                merged[k] = nums2[j];
+                j++;
+            }
+            k++;
+        }
+
+        while (i < nums1.length) { //if nums1 still has values
+            merged[k] = nums1[i];
+            i++;
+            k++;
+        }
+
+        while (j < nums2.length) { //if nums 2 still has values
+            merged[k] = nums2[j];
+            j++;
+            k++;
+        }
+
+        if (totalLength % 2 == 1) { //if odd number size, there is a clear median
+            return merged[totalLength / 2];
+        } else { //if even number size, we take the midpoint.  array of size 10, divide by 2 = 5.  We subtract 1 because array of size 10 is 0-9, so we need 5 and 4, which is why we subtract 1
+            int mid1 = merged[totalLength / 2 - 1];
+            int mid2 = merged[totalLength / 2];
+            return (double) (mid1 + mid2) / 2;
+        }
+    }
+}
+
+//solution 2 with O(log(m+n)) solution
+
+
+
+
