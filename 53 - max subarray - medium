@@ -1,0 +1,26 @@
+/*************************** JAVA **************************************/
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int maxSum = nums[0]; // Initialize maxSum with the first element of the array.
+        int currentSum = nums[0]; // Initialize currentSum with the first element.
+
+        // Iterate through the array starting from the second element.
+        for (int i = 1; i < nums.length; i++) {
+            // Update currentSum by taking the maximum of the current element and the sum so far.
+            currentSum = Math.max(nums[i], currentSum + nums[i]);
+            // Update maxSum with the maximum value seen so far.
+            maxSum = Math.max(maxSum, currentSum);
+        }
+
+        return maxSum; // maxSum will contain the maximum subarray sum.
+    }
+}
+
+/*************************** PYTHON *********************************/
+class Solution(object):
+    def maxSubArray(self, nums):
+        currentSum = maxSum = nums[0]
+        for i in range(1,len(nums)):
+            currentSum = max(nums[i],currentSum+nums[i])
+            maxSum = max(maxSum,currentSum)
+        return maxSum
