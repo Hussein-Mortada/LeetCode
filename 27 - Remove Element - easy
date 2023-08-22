@@ -1,0 +1,46 @@
+/********************************* JAVA ******************************/
+class Solution {
+    public int removeElement(int[] nums, int val) {
+        //beats 100%
+        int counter=0; //counter of non-val values
+        int end=nums.length-1; // end of the array
+        for(int i=nums.length-1;i>=0;i--){ //start from end of array, loop until beginning.  Since the end values dont matter, we can start here
+            if(nums[i]==val){ //if value is matched
+                //swap value to make it to the end of the array
+                int temp=nums[i];
+                nums[i]=nums[end];
+                nums[end]=temp;
+                end--; //decrement end location
+            }
+            else{
+                counter++; //counter goes up, end value stays same, i decrements
+            }
+        }
+        return counter;
+    }
+}
+
+
+// Solution 2
+class Solution {
+    public int removeElement(int[] nums, int val) {
+        int index = 0; //pointer for where we are at beginning (used for swapping when value found
+        for (int i = 0; i < nums.length; i++) { //loop from start to end of array
+            if (nums[i] != val) { //value not found, swap the current location to the beginning of the array (where index is pointing)
+                nums[index] = nums[i];
+                index++;
+            }
+        }
+        return index;
+    }
+}
+
+/********************************* Python ******************************/
+class Solution(object):
+    def removeElement(self, nums, val):
+        index=0 #index at start of list, used for swapping location when  value matches
+        for i in range(len(nums)): #loop through list
+            if(nums[i] != val): #if value is NOT equal, 
+                nums[index]=nums[i]#swap index with current pointer in loop
+                index+=1#index goes up as the swap was made
+        return index
