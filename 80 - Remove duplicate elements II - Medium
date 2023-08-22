@@ -1,0 +1,22 @@
+/**************************** JAVA ***************************/
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        int unique=2; //since we can have 2 at most, start at 2
+        for(int i=2;i<nums.length;i++){ //start at the 3rd element since we can have 2 max of an element
+            if(nums[i]!=nums[unique-2]){ //if the element is NOT the same as 2 previous, we have a unique element
+                nums[unique]=nums[i]; //move the new unique element to the last unique element identified position
+                unique++; //update the last unique element position
+            }
+        }
+        return unique;
+    }   
+}
+/**************************** Python ***************************/
+class Solution(object):
+    def removeDuplicates(self, nums):
+        unique = 2
+        for i in range(2,len(nums)):
+            if(nums[i]!=nums[unique-2]):
+                nums[unique]=nums[i]
+                unique+=1
+        return unique
