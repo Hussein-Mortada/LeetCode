@@ -1,0 +1,73 @@
+/************************ JAVA ********************************/
+import java.util.*;
+
+class Solution {
+    public int majorityElement(int[] nums) {
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        
+        // Count the frequency of each element and store it in the map
+        for (int num : nums) {
+            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+        }
+        
+        int majorityElement = nums[0];
+        int maxFrequency = 0;
+        
+        // Find the element with the highest frequency
+        for (Map.Entry<Integer, Integer> entry : frequencyMap.entrySet()) {
+            if (entry.getValue() > maxFrequency) {
+                maxFrequency = entry.getValue();
+                majorityElement = entry.getKey();
+            }
+        }
+        
+        return majorityElement;
+    }
+}
+// solution 2 Boyer-moore voting algorithm
+class Solution {
+    public int majorityElement(int[] nums) {
+        int candidate = nums[0];
+        int count = 1;
+        for(int i = 1; i< nums.length; i++){
+            if(nums[i]==candidate){
+                count++;
+            }
+            else{
+                count--;
+            }
+            if(count==0){
+                candidate=nums[i];
+                count=1;
+            }
+        }
+        return candidate;
+    }
+}
+
+/***************************** Python **********************/
+class Solution(object):
+    def majorityElement(self, nums):
+        candidate=nums[0]
+        count=1
+        for i in range (1,len(nums)):
+            if candidate==nums[i]:
+                count+=1
+            else:
+                count-=1
+            if count==0:
+                candidate=nums[i]
+                count=1
+        return candidate
+
+// another solution
+class Solution(object):
+    def majorityElement(self, nums):
+        majority_count = 0
+        majority_elem = None
+        for elem in set(nums):
+            elem_count = nums.count(elem)
+            if elem_count > majority_count:
+                majority_count = elem_count
+                majority_elem = elem
+        return majority_elem
