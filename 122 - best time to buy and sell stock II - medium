@@ -1,0 +1,37 @@
+/************************** Java ***********************/
+class Solution {
+    public int maxProfit(int[] prices) {
+        int minPrice = Integer.MAX_VALUE; // min price to max value so that we can start at 0
+        int profit=0; //current total profit
+        for(int i =0;i<prices.length;i++){
+            minPrice = Math.min(minPrice,prices[i]); //minPrice points to the lowest we have seen so far, unless we set it
+            if((prices[i]-minPrice) > 0 ){ // if we found a day where the minimum wasnt updated, we can make profit - 
+                profit+=prices[i]-minPrice; //profit takes the difference
+                minPrice = prices[i]; // minPrice is set to the upper value, since the next value we are looking for should be lower.  If we find a higher value, the profit will stay the same -> 1-9 = 1-5-9 .  Finding a new 
+								//lower value will lead to more profit
+            }
+        }
+        return profit;
+    }
+}
+
+
+/************************** Python ***********************/
+class Solution(object):
+    def maxProfit(self, prices):
+        minPrice = float('inf')
+        profit = 0
+        for i in range(len(prices)):
+            minPrice = min(minPrice, prices[i])
+            if(prices[i]-minPrice > 0):
+                profit+= prices[i]-minPrice
+                minPrice=prices[i]
+        return profit
+
+#solution 2
+class Solution(object):
+    def maxProfit(self, prices):
+        profit = 0
+        for i in range(1,len(prices)):
+            profit+=max(0,prices[i]-prices[i-1])
+        return profit
