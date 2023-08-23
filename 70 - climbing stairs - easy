@@ -1,0 +1,30 @@
+/****************** java *******************/
+class Solution {
+    public int climbStairs(int n) {
+        int[] dp = new int[n+1];
+        dp[0] = 1;
+        dp[1]=1;
+        for(int i =2; i < n+1; i++){
+            dp[i] = dp[i-1]+ dp[i-2];
+        }
+        return dp[n];
+    }
+}
+
+/***************** Python *************/
+class Solution(object):
+    def climbStairs(self, n):
+        dp = [0] * (n + 1)
+        dp[0] = 1
+        dp[1] = 1
+        for i in range(2, n + 1):
+            dp[i] = dp[i - 1] + dp[i - 2]
+        return dp[n]
+
+# solution 2
+class Solution(object):
+    def climbStairs(self, n):
+        a, b = 1, 1
+        for i in range(n):
+            a, b = b, a + b
+        return a
