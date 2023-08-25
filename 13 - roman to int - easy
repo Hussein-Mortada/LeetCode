@@ -1,0 +1,66 @@
+/*********************** JAVA **********************/
+public class Solution {
+    public int romanToInt(String s) {
+        // Create a HashMap to map Roman numeral symbols to values.
+        HashMap<Character, Integer> romanToInt = new HashMap<>();
+        romanToInt.put('I', 1);
+        romanToInt.put('V', 5);
+        romanToInt.put('X', 10);
+        romanToInt.put('L', 50);
+        romanToInt.put('C', 100);
+        romanToInt.put('D', 500);
+        romanToInt.put('M', 1000);
+
+        int result = 0;
+        int prevValue = 0; // To keep track of the previous symbol's value
+
+        // Iterate through the Roman numeral string from right to left
+        for (int i = s.length() - 1; i >= 0; i--) {
+            char symbol = s.charAt(i);
+            int value = romanToInt.get(symbol);
+
+            // Check if it's a subtraction case
+            if (value < prevValue) {
+                result -= value;
+            } else {
+                result += value;
+            }
+
+            // Update prevValue for the next iteration
+            prevValue = value;
+        }
+
+        return result;
+    }
+}
+/*********************** Python **********************/
+class Solution(object):
+    def romanToInt(self, s):
+        roman_to_int = {
+        'I': 1,
+        'V': 5,
+        'X': 10,
+        'L': 50,
+        'C': 100,
+        'D': 500,
+        'M': 1000
+        }
+        result = 0
+        prev_value = 0  # To keep track of the previous symbol's value
+
+        for symbol in reversed(s):
+            value = roman_to_int[symbol]
+
+            # Check if it's a subtraction case
+            if value < prev_value:
+                result -= value
+            else:
+                result += value
+
+            # Update prev_value for the next iteration
+            prev_value = value
+
+        return result 
+
+
+
