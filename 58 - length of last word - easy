@@ -1,0 +1,27 @@
+/** Java **/
+class Solution {
+    public int lengthOfLastWord(String s) {
+        int result = 0;
+        s = s.trim();
+        
+        int count = 0;
+        int i = s.length() - 1;
+
+        while (i >= 0 && s.charAt(i) != ' ') {
+            count++;
+            i--;
+        }
+
+        return count;
+    }
+}
+/** Python **/
+class Solution(object):
+    def lengthOfLastWord(self, s):
+        return len(s.strip().split(" ")[-1])
+
+        #The strip() function removes the spaces
+        #The split() function splits the string into a list seperated by their spaces
+        #[-1] gets the last element of the list
+        #The len() function returns the length of the string
+        #
