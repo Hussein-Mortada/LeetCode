@@ -1,0 +1,21 @@
+//java
+class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        HashSet<Integer> seen = new HashSet<>();
+        for (int num : nums) {
+            if (!seen.add(num)) {
+                return true; // Return true when a duplicate is found.
+            }
+        }
+        return false; // Return false when there are no duplicates.
+    }
+}
+//python
+class Solution(object):
+    def containsDuplicate(self, nums):
+        hset = set()
+        for idx in nums:
+            if idx in hset:
+                return True
+            else:
+                hset.add(idx)
