@@ -1,0 +1,44 @@
+/** Java **/
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        if (strs.length == 0) {
+            return "";
+        }
+
+        String minStr = strs[0];
+        String maxStr = strs[0];
+
+        // Find the minimum and maximum strings
+        for (String str : strs) {
+            if (str.compareTo(minStr) < 0) {
+                minStr = str;
+            }
+            if (str.compareTo(maxStr) > 0) {
+                maxStr = str;
+            }
+        }
+
+        int index = 0;
+        int minLength = Math.min(minStr.length(), maxStr.length());
+
+        // Find the common prefix between the minimum and maximum strings
+        while (index < minLength && minStr.charAt(index) == maxStr.charAt(index)) {
+            index++;
+        }
+
+        return minStr.substring(0, index);
+    }
+}
+
+/** Python **/
+class Solution:
+    def longestCommonPrefix(self, v):
+        ans=""
+        v=sorted(v)
+        first=v[0]
+        last=v[-1]
+        for i in range(min(len(first),len(last))):
+            if(first[i]!=last[i]):
+                return ans
+            ans+=first[i]
+        return ans 
