@@ -1,0 +1,42 @@
+//java
+//sliding window
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        HashMap<Character,Integer> map = new HashMap<>();
+        int left =0;
+        int right = 0;
+        int max =0;
+        while(right<s.length()){
+            map.put(s.charAt(right),map.getOrDefault(s.charAt(right),0)+1);
+            if(map.get(s.charAt(right))>1){
+                while (map.containsKey(s.charAt(right)) && map.get(s.charAt(right)) > 1) {
+                    map.put(s.charAt(left), map.get(s.charAt(left)) - 1);
+                    left++;
+                }
+            }
+            max=Math.max(max,right-left+1);
+            right++;
+        }
+        return max;
+    }
+}
+
+//python
+class Solution:
+    def lengthOfLongestSubstring(self, s):
+        n = len(s)
+        maxLength = 0
+        charSet = set()
+        left = 0
+        
+        for right in range(n):
+            if s[right] not in charSet:
+                charSet.add(s[right])
+                maxLength = max(maxLength, right - left + 1)
+            else:
+                while s[right] in charSet:
+                    charSet.remove(s[left])
+                    left += 1
+                charSet.add(s[right])
+        
+        return maxLength
