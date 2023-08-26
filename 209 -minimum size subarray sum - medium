@@ -1,0 +1,35 @@
+//java
+class Solution {
+    public int minSubArrayLen(int target, int[] nums) {
+        int min =Integer.MAX_VALUE;
+        int left=0;
+        int right = 0;
+        int currSum=0;
+        while(right<nums.length){
+            currSum+=nums[right];
+            right++;
+            while(currSum>=target){
+                min=Math.min(min,right-left);
+                currSum-=nums[left];
+                left++;
+            }
+        }
+        return min==Integer.MAX_VALUE?0:min;
+    }
+}
+
+//python
+class Solution(object):
+    def minSubArrayLen(self, target, nums):
+        left,right,currsum,mini=0,0,0,float('inf')
+        while right < len(nums):
+            currsum+=nums[right]
+            right+=1
+            while currsum>=target:
+                mini=min(mini,right-left)
+                currsum-=nums[left]
+                left+=1
+        if mini==float('inf'):
+            return 0
+        else:
+            return mini
