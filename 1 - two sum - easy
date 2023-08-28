@@ -1,0 +1,25 @@
+//java
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        HashMap<Integer,Integer> map = new HashMap<>();
+        for(int i=0;i<nums.length;i++){
+            int compliment = target-nums[i];
+            if(map.containsKey(compliment)){
+                return new int[]{map.get(compliment),i};
+            }
+            map.put(nums[i],i);
+        }
+        return null;
+    }
+}
+
+//python
+class Solution(object):
+    def twoSum(self, nums, target):
+        seen = {}  
+        for i in range(len(nums)):
+            complement = target - nums[i]
+            if complement in seen:
+                return [seen[complement], i]
+            seen[nums[i]] = i  
+        return -1
