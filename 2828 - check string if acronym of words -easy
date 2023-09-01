@@ -1,0 +1,17 @@
+//java
+class Solution {
+    public boolean isAcronym(List<String> words, String s) {
+        if(words.size()!=s.length()){
+            return false;
+        }
+        int leftp = 0;
+        int i =0;
+        while(i<words.size() && leftp<s.length()){
+            if(s.charAt(leftp)!=words.get(i).charAt(0)){
+                return false;
+            }
+            leftp++;i++;
+        }
+        return leftp==words.size();
+    }
+}
