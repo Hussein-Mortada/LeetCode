@@ -1,0 +1,32 @@
+//java
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        HashMap<String, List<String>> mp = new HashMap<>();
+        
+        for(String s: strs){
+            char[] chars = s.toCharArray();
+            Arrays.sort(chars);
+            String newString = new String(chars);
+
+            if(!mp.containsKey(newString)){
+                mp.put(newString, new ArrayList<>());
+            }
+            mp.get(newString).add(s);
+
+        }
+        return new ArrayList<>(mp.values());
+
+
+    }
+}
+//python
+class Solution(object):
+    def groupAnagrams(self, strs):
+        anagramMap = defaultdict(list)
+
+        for string in strs:
+            sorted_word = ''.join(sorted(string))
+            anagramMap[sorted_word].append(string)
+
+        return list(anagramMap.values())
+        
