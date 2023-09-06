@@ -1,0 +1,23 @@
+class Solution {
+    public void deleteNode(ListNode node) {
+        ListNode next = node.next;
+        
+        ListNode curr = node;
+        while(next!=null){
+            curr.val=next.val;
+            next=next.next;
+            curr=curr.next;
+        }
+        curr=null;
+        
+        //since unique nums, look for dupe.
+        ListNode prev= node;
+        next = prev.next;
+        while(prev.val!=next.val && next!=null){
+            prev=prev.next;
+            next=next.next;
+        }
+        prev.next=next.next;
+        
+    }
+}
