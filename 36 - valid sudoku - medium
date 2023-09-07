@@ -1,0 +1,49 @@
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        
+        Set<Character> rows = null;
+        Set<Character> cols = null;
+        //checks the rows and the columns
+        for(int i=0;i<9;i++){
+            rows=new HashSet<>();
+            cols=new HashSet<>();
+            for(int j=0;j<9;j++){
+                char cRow = board[i][j];
+                char cCol = board[j][i];
+                if(cRow!='.'){
+                    if(rows.contains(cRow)){
+                        return false;
+                    }else{
+                        rows.add(cRow);
+                    }
+                }
+                if(cCol!='.'){
+                    if(cols.contains(cCol)){
+                        return false;
+                    }else{
+                        cols.add(cCol);
+                    }
+                }
+            }
+        }
+        //checks the cubes
+        for (int i = 0; i < 9; i += 3) {
+            for (int j = 0; j < 9; j += 3) {
+                Set<Character> block = new HashSet<>();
+                    for (int x = i; x < i + 3; x++) { //used to iterate through the 3x3 block
+                        for (int y = j; y < j + 3; y++) {
+                            char c = board[x][y];
+                            if (c != '.') {
+                                 if (block.contains(c)) {
+                                     return false; // Duplicate in the block
+                                 } else {
+                                    block.add(c);
+                                }
+                              }
+                          }
+                      }
+                  }
+              }
+        return true;
+    }
+}
