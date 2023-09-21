@@ -1,0 +1,24 @@
+
+class Solution {
+    public boolean isBalanced(TreeNode root) {
+        int height = isBalanced1(root);
+        return height!=-1;
+    }
+
+    public int isBalanced1(TreeNode root){
+        if(root==null) return 0;
+        int leftHeight = isBalanced1( root.left);
+        if(leftHeight==-1){
+            return -1;
+        }
+        int rightHeight = isBalanced1( root.right);
+        if(rightHeight==-1){
+            return -1;
+        }
+        int heightDiff = Math.abs(leftHeight - rightHeight);
+        if (heightDiff > 1) {
+            return -1; 
+        }
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+}
