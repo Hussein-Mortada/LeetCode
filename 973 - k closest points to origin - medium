@@ -1,0 +1,22 @@
+class Solution {
+    public int[][] kClosest(int[][] points, int k) {
+        PriorityQueue<Pair<Double,Integer>> q = 
+        new PriorityQueue<Pair<Double,Integer>>(
+            (a,b) -> Double.compare(a.getKey(),b.getKey())
+        );
+        int index=0;
+        for(int[] point: points){
+            double res; 
+            int temp  = point[0] * point[0] + point[1] *point[1];
+            res = Math.sqrt(temp);
+
+            q.offer(new Pair(res,index++));
+        }
+        int[][] result = new int[k][2];
+        for (int i = 0; i < k; i++) {
+            index = q.poll().getValue();
+            result[i] = points[index];
+        }
+        return result;
+    }
+}
