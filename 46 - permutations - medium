@@ -1,0 +1,24 @@
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        helper(res,nums,0);
+        return res;
+    }
+    void helper(List<List<Integer>> res, int[] nums, int start){
+        if(start==nums.length){
+            ArrayList<Integer> list = new ArrayList<>();
+            for(int num:nums) list.add(num);
+            res.add(list);
+        }
+        for(int i = start; i < nums.length;i++){
+            swap(nums, start,i);
+            helper(res,nums,start+1);
+            swap(nums,start,i);
+        }
+    }
+    void swap(int[] nums, int a, int b){
+        int temp = nums[b];
+        nums[b]=nums[a];
+        nums[a]=temp;
+    }
+}
