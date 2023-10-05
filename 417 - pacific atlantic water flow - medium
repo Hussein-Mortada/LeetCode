@@ -1,0 +1,36 @@
+class Solution {
+    int ROWS, COLS;
+    public List<List<Integer>> pacificAtlantic(int[][] heights) {
+        ROWS = heights.length;
+        COLS = heights[0].length;
+        boolean[][] pac = new boolean[ROWS][COLS];
+        boolean[][] atl = new boolean[ROWS][COLS];
+        List<List<Integer>> res = new ArrayList<>();
+        for(int col = 0; col < COLS; col++){
+            dfs(pac,heights,0,col, Integer.MIN_VALUE);
+            dfs(atl,heights,ROWS-1,col, Integer.MIN_VALUE);
+        }
+        for(int row = 0; row < ROWS; row++){
+            dfs(pac,heights,row,0, Integer.MIN_VALUE);
+            dfs(atl,heights,row,COLS-1, Integer.MIN_VALUE);
+        }
+        
+        for(int row=0;row<ROWS;row++){
+            for(int col = 0; col<COLS;col++){
+                if(pac[row][col] && atl[row][col]){
+                    res.add(List.of(row,col));
+                }
+            }
+        }
+        return res;
+
+    }
+    void dfs(boolean[][] ocean, int[][] heights, int row, int col, int prevHeight){
+        if(row<0 || row>=ROWS || col<0 || col>=COLS || ocean[row][col] || heights[row][col] < prevHeight)     return;
+        ocean[row][col] = true;
+        dfs(ocean,heights,row+1,col,heights[row][col]);
+        dfs(ocean,heights,row-1,col,heights[row][col]);
+        dfs(ocean,heights,row,col+1,heights[row][col]);
+        dfs(ocean,heights,row,col-1,heights[row][col]);
+    }
+}
