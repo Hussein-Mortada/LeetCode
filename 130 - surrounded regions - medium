@@ -1,0 +1,41 @@
+class Solution {
+    public void solve(char[][] board) {
+        int ROWS = board.length;
+        int COLS = board[0].length;
+        //all edges are not surrounded
+        for(int i=0;i<COLS;i++){
+            if(board[0][i]=='O') dfs(board,0,i,ROWS,COLS);
+            if(board[ROWS-1][i]=='O') dfs(board,ROWS-1,i,ROWS,COLS);
+        }
+        for(int i = 0; i<ROWS;i++){
+            if(board[i][0]=='O') dfs(board,i,0,ROWS,COLS);
+            if(board[i][COLS-1]=='O') dfs(board,i,COLS-1,ROWS,COLS);
+        }
+
+        for(int row=0;row<ROWS;row++){
+            for(int col=0;col<COLS;col++){
+                if(board[row][col]=='O'){
+                    board[row][col]='X';
+                }else if(board[row][col]=='T'){
+                    board[row][col]='O';
+                }
+            }
+        }
+    }
+    void dfs(
+        char[][] board,
+        int row,
+        int col,
+        int ROWS,
+        int COLS
+    ){
+        if(row<0 || row>=ROWS || col<0 || col>=COLS || board[row][col]!='O') return;
+
+        board[row][col] = 'T';//t for temp
+
+        dfs(board,row+1,col,ROWS,COLS);
+        dfs(board,row-1,col,ROWS,COLS);
+        dfs(board,row,col+1,ROWS,COLS);
+        dfs(board,row,col-1,ROWS,COLS);
+    }
+}
