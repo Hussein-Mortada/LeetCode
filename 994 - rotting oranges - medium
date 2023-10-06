@@ -1,0 +1,40 @@
+class Solution {
+    public int orangesRotting(int[][] grid) {
+        Queue<Pair<Integer,Integer>> q = new LinkedList<>();
+        int time=0;
+        int fresh=0;
+        int ROWS=grid.length;
+        int COLS = grid[0].length;
+        for(int row=0;row<ROWS;row++){
+            for(int col=0;col<COLS;col++){
+                if(grid[row][col]==1){
+                    fresh++;
+                }else if(grid[row][col]==2){
+                    q.offer(new Pair<>(row,col));
+                }
+            }
+        }
+        int[] dr = {1,-1,0,0};
+        int[] dc = {0,0,1,-1};
+        while(!q.isEmpty() && fresh!=0){
+            int size = q.size();
+            for(int i=0;i<size;i++){
+                Pair<Integer,Integer> pair = q.poll();
+                int row = pair.getKey();
+                int col = pair.getValue();
+                for(int j=0;j<4;j++){
+                    int newRow = row+dr[j];
+                    int newCol = col+dc[j];
+                    if(newRow<0 || newRow>=ROWS 
+                    || newCol<0 || newCol>=COLS 
+                    || grid[newRow][newCol]!=1) continue;
+                    grid[newRow][newCol]=2;
+                    q.offer(new Pair<>(newRow,newCol));
+                    fresh--;
+                }
+            }
+            time++;
+        }
+        return fresh==0?time:-1;
+    }
+}
