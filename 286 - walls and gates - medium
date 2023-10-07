@@ -1,0 +1,34 @@
+public class Solution {
+    public void wallsAndGates(int[][] rooms) {
+        Queue<int[]> q = new LinkedList<>();
+        int ROWS = rooms.length;
+        int COLS = rooms[0].length;
+        
+        for(int row = 0; row<ROWS;row++){
+            for(int col=0;col<COLS;col++){
+                if(rooms[row][col]==0){
+                    q.offer(new int[]{row,col,0});
+                }
+            }
+        }
+        int[] dr = {1,-1,0,0};
+        int[] dc = {0,0,1,-1};
+        while(!q.isEmpty()){
+            int size = q.size();
+            for(int i =0;i<size;i++){
+                int[] rc = q.poll();
+                int row = rc[0];
+                int col=rc[1];
+                for(int j=0;j<4;j++){
+                    int newRow = row+dr[j];
+                    int newCol=col+dc[j];
+                    if( newRow<0 || newRow>=ROWS || newCol <0 || newCol >=COLS || rooms[newRow][newCol]!=2147483647){
+                        continue;
+                    }
+                    rooms[newRow][newCol]=rc[2]+1;
+                    q.offer(new int[]{newRow,newCol,rc[2]+1});
+                }
+            }
+        }
+    }
+}
