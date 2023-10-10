@@ -1,0 +1,42 @@
+class Solution {
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        List<List<Integer>> graph = new ArrayList<>();
+        //makes an empty list for each course ex: 0,1 -> 0: , 1: 
+        for(int i = 0; i<numCourses;i++){
+            graph.add(new ArrayList<>());
+        }
+        // for each item in prerequisites, adds it to the list
+        //made earlier ex: [1,0][0,1] -> 0:1 , 1:0
+        for(int[] prereq: prerequisites){
+            graph.get(prereq[0]).add(prereq[1]);
+        }
+        //list of visited nodes: 0=not visited 1: currently visiting, 2:visited
+        int[] visited = new int[numCourses];
+        List<Integer> order = new ArrayList<>();
+        for(int i=0;i<numCourses;i++){
+            if(visited[i]==0){
+                if(hasCycle(graph,visited,i,order)) return new int[0];
+            }
+        }
+        int[] resArray = new int[order.size()];
+        for(int i=0; i<order.size(); i++){
+            resArray[i] = order.get(i);   
+        }
+        return resArray;
+
+    }
+
+    boolean hasCycle(List<List<Integer>> graph,int[] visited,int course,List<Integer> order){
+        if(visited[course]==1) return true;
+        if(visited[course]==2) return false;
+        visited[course]=1;//now visiting it
+        for(int prereq: graph.get(course)){
+            if(visited[prereq] == 1) return true; //if the prereq is visiting already, cycle found
+            //if prereq hasnt been visited yet, check if it also has a cycle
+            if(visited[prereq] ==0 && hasCycle(graph,visited,prereq,order)) return true; 
+        }
+        visited[course]=2;
+        order.add(course);
+        return false;
+    }
+}
