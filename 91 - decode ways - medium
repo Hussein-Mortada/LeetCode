@@ -1,0 +1,23 @@
+class Solution {
+    public int numDecodings(String s) {
+        return decode(s,0,new Integer[s.length()]);
+    }
+    int decode(String s, int i, Integer[] dp){
+        if(i==s.length()){
+            return 1;
+        }
+        if(s.charAt(i)=='0'){
+            return 0;
+        } 
+        if(dp[i]!=null){
+            return dp[i];
+        }
+        int res = decode(s,i+1,dp);
+        if(i<s.length()-1 && 
+            (s.charAt(i)=='1' || s.charAt(i)=='2' && s.charAt(i+1)<'7')){
+                res+=decode(s,i+2,dp);
+        }
+        dp[i]=res;
+        return dp[i];
+    }
+}
