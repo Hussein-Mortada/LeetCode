@@ -1,0 +1,30 @@
+class Solution {
+    public int maxProduct(int[] nums) {
+        int lmax=nums[0];
+        int rmax=nums[0];
+        int product=1;
+        boolean hasZero = false;
+        for(int i =0; i < nums.length;i++){
+            product*=nums[i];
+            if(product==0){
+                hasZero = true;
+                product=1;
+                continue;
+            }
+            lmax=Math.max(lmax,product);
+        }
+        product=1;
+        for(int i =nums.length-1;i>=0;i--){
+            product*=nums[i];
+            if(product==0){
+                hasZero = true;
+                product=1;
+                continue;
+            }
+            rmax=Math.max(rmax,product);
+        }
+        if(hasZero) return Math.max(Math.max(rmax,lmax),0);
+        return Math.max(rmax,lmax);
+        
+    }
+}
