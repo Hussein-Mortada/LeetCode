@@ -1,0 +1,45 @@
+class Solution { //slow solution
+    public boolean canPartition(int[] nums) {
+        int sum = Arrays.stream(nums).sum();
+        if (sum % 2 != 0) return false;
+
+        int targ = sum / 2;
+        Set<Integer> set = new HashSet<>();
+        set.add(0);
+
+        for (int num : nums) {
+            Set<Integer> tset = new HashSet<>();
+            for (int item : set) {
+                int newSum = item + num;
+                if (newSum == targ) {
+                    return true;
+                }
+                tset.add(newSum);
+            }
+            set.addAll(tset);
+        }
+        
+        return set.contains(targ);
+}
+}
+
+class Solution { //fast solution
+    public boolean canPartition(int[] nums) {
+        int sum = Arrays.stream(nums).sum();
+        if (sum % 2 != 0) return false;
+
+        int target = sum / 2;
+        boolean[] dp = new boolean[target];
+        dp[0] = true;
+
+        for (int no : nums) {
+            for (int i = target; i >= no; i--) {
+                if (dp[i - no] == true) {
+                    if (i == target) return true;
+                    dp[i] = true;
+                }
+            }
+        }
+        return false;
+    }
+}
