@@ -1,0 +1,25 @@
+class Solution {
+    public int maxProfit(int[] prices) {
+        HashMap<String, Integer> map = new HashMap<>();
+        return dfs(prices,map,0,true);
+    }
+    int dfs(int[] prices,HashMap<String, Integer> map,int i,boolean buying){
+        if(i>=prices.length){
+            return 0;
+        }
+        String key = i+"-"+buying;
+        if(map.containsKey(key)){
+            return map.get(key);
+        }
+        if(buying){
+            int buy = dfs(prices,map,i+1,false)-prices[i];
+            int cd = dfs(prices,map,i+1,true);
+            map.put(key,Math.max(buy,cd));
+        }else{
+            int sell = dfs(prices,map,i+2,true)+prices[i];
+            int cd = dfs(prices,map,i+1,false);
+            map.put(key,Math.max(sell,cd));
+        }
+        return map.get(key);
+    }
+}
