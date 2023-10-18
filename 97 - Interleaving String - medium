@@ -1,0 +1,59 @@
+class Solution { //dp
+    public boolean isInterleave(String s1, String s2, String s3) {
+        if(s1.length()+s2.length() != s3.length()) return false;
+
+        boolean[][] dp = new boolean[s1.length()+1][s2.length()+1];
+        for(boolean[] x: dp){
+            Arrays.fill(x,false);
+        }
+        dp[s1.length()][s2.length()]=true;
+        for(int i = s1.length();i>=0;i--){
+            for(int j=s2.length();j>=0;j--){
+                if(i<s1.length() && 
+                    s3.charAt(i+j) == s1.charAt(i) && 
+                    dp[i+1][j]
+                    ){
+                    dp[i][j]=true;
+                }
+                if(j<s2.length() && 
+                    s3.charAt(i+j) == s2.charAt(j) && 
+                    dp[i][j+1]
+                    ){
+                    dp[i][j]=true;
+                }
+            }
+        }
+        return dp[0][0];
+    }
+
+
+class Solution { //memoization
+    public boolean isInterleave(String s1, String s2, String s3) {
+        if(s1.length()+s2.length() != s3.length()) return false;
+        HashMap<String,Boolean> map = new HashMap<>();
+        return dfs(s1,s2,s3,0,0,map);
+    }
+    boolean dfs(String s1, String s2, String s3,int i,int j,HashMap<String,Boolean> map){
+        if(i==s1.length() && j == s2.length()){
+            return true;
+        }
+        String key = i + "-"+j;
+        if(map.containsKey(key)){
+            return map.get(key);
+        }
+        if(i<s1.length() && 
+            s3.charAt(i+j) == s1.charAt(i) && 
+            dfs(s1,s2,s3,i+1,j,map)
+            ){
+            return true;
+        }
+        if(j<s2.length() && 
+            s3.charAt(i+j) == s2.charAt(j) && 
+            dfs(s1,s2,s3,i,j+1,map)
+            ){
+            return true;
+        }
+        map.put(key,false);
+        return map.get(key);
+    }
+}
