@@ -1,0 +1,27 @@
+class Solution {
+    public boolean checkValidString(String s) {
+        Stack<Integer> op = new Stack<>(); //opening (
+        Stack<Integer> st = new Stack<>(); //star
+        int i=0;
+        for(char c: s.toCharArray()){
+            if(c=='('){
+                op.push(i);
+            }else if(c==')'){
+                if(op.size()>0) op.pop();//if we have an opening
+                else if(st.size()>0) st.pop();//if we have a star
+                else return false;
+            }else{
+                st.push(i);
+            }
+            i++;
+        }
+        while(op.size()>0 && st.size()>0){
+            if(op.peek()>st.peek()){//opening ( happens after the star
+                return false;
+            }
+            op.pop();
+            st.pop();
+        }
+        return op.size()==0;
+    }
+}
