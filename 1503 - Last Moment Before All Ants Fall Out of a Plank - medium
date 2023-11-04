@@ -1,0 +1,15 @@
+class Solution {
+    public int getLastMoment(int n, int[] left, int[] right) {
+        int time = 0;
+        for(int l : left){
+            //ones traveling left = starting at high units
+            //high units = that many units to travel to get to 0
+            time = Math.max(time,l);
+        }
+        for(int r: right){
+            time = Math.max(time, n-r); 
+            //if pos = 0, n -r = n units to travel
+        }
+        return time;
+    }
+}
